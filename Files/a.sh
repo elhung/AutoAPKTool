@@ -3,6 +3,12 @@ red=`tput setab 1`
 white=`tput setaf 7`
 green=`tput setab 2`
 reset=`tput sgr0`
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+IFS='/' read -ra ADDRX <<< "$SCRIPTPATH"
+ptd=$HOME
+while read USER; do IFS=':' read -ra ADDRY <<< "$USER"; done < $ptd/AutoApkConfig.txt
+noname="${ADDRY[${#ADDRY[@]} - 1]}"
+echo "AutoName for Signing is set to $noname"
 read -e -p "Function[d, b, s, p, help]: " fun
 if [ "$fun" == "help" ]; then
   printf "Command List:\nd - Decompiles an APK [Provide any APK]\nb - Builds an APK [Provide Decompiled Folder]\ns - Signs an APK [Provide any APK]\np - Builds & Signs and APK [Provide Decompiled Folder]\n"
@@ -12,9 +18,15 @@ else
   read -e -p "File: " file
   if [ $fun == "s" ] || [ $fun == "b" ] || [ $fun == "d" ] || [ $fun == "p" ] ; then
     if [ $fun == "s" ]; then
-      read -e -p "OutputName: " name
+      if [ "$noname" != "1" ]; then
+        read -e -p "OutputName[No need to add .apk]: " name
+      else
+        IFS='.' read -ra ADDRXO <<< "$file"
+        name="${ADDRXO[${#ADDRXO[@]} - 2]}"
+      fi
+      ex2=".apk"
       echo "${green}${white}Now Signing!${reset}"
-      java -jar signapk.jar testkey.x509.pem testkey.pk8 $file $name
+      java -jar signapk.jar testkey.x509.pem testkey.pk8 $file $name$ex2
       echo "${green}${white}Signing Successfull${reset}"
     elif [ $fun == "d" ]; then
       IFS='/' read -ra ADDR <<< "$file"
@@ -43,7 +55,12 @@ else
       filename=${ADDR[${#ADDR[@]} - 1]}
       ext=".apk"
       final=$file$dist$filename$ext
-      read -e -p "OutputName[No need to add .apk]: " name2
+      if [ "$noname" != "1" ]; then
+        read -e -p "OutputName[No need to add .apk]: " name2
+      else
+        IFS='.' read -ra ADDRO <<< "$filename"
+        name2=${ADDRO[${#ADDRO[@]} - 1]}
+      fi
       echo "${green}${white}Now Building!${reset}"
       apktool b $file
       echo "${green}${white}Building Successfull!${reset}"
