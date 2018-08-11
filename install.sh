@@ -13,7 +13,8 @@ echo "${green}${white}Moved Main Script to $ptd2, run it by typing a.sh in Termi
 mv $pts/signapk.jar $ptd
 mv $pts/testkey.x509.pem $ptd
 mv $pts/testkey.pk8 $ptd
-echo "${green}${white}Moved Signing Files to /Users/${ADDR[2]}${reset}"
+mv $pts/AutoApkConfig.txt $ptd
+echo "${green}${white}Moved Signing Files & Config.txt to /Users/${ADDR[2]}${reset}"
 if hash apktool 2>/dev/null; then
     echo "${green}${white}Apktool is installed!${reset}"
 else
