@@ -9,10 +9,20 @@ ptd=$HOME
 while read USER; do IFS=':' read -ra ADDRY <<< "$USER"; done < $ptd/AutoApkConfig.txt
 noname="${ADDRY[${#ADDRY[@]} - 1]}"
 echo "AutoName for Signing is set to $noname"
-read -e -p "Function[d, b, s, p, help]: " fun
+read -e -p "Function[d, b, s, p, AutoName{0/1}, help]: " fun
 if [ "$fun" == "help" ]; then
-  printf "Command List:\nd - Decompiles an APK [Provide any APK]\nb - Builds an APK [Provide Decompiled Folder]\ns - Signs an APK [Provide any APK]\np - Builds & Signs and APK [Provide Decompiled Folder]\n"
+  printf "Command List:\nd - Decompiles an APK [Provide any APK]\nb - Builds an APK [Provide Decompiled Folder]\ns - Signs an APK [Provide any APK]\np - Builds & Signs and APK [Provide Decompiled Folder]\nAutoName - Option to Automatically get the perfect name for your signed apk, edit its value from $HOME/AutoApkConfig.txt\nUsage: Autoname 1 or Autoname 0\n!NOTE: Only works if your game name is at the end\nExample - com.mycompany.gamename, signed apk will be 'gamename'.apk\nif its com.mycompany.gamename.extra then your output apk will be named 'extra.apk'\n"
   sleep 3
+  a.sh
+elif [ "$fun" == "AutoName 0" ]; then
+  rm $ptd/AutoApkConfig.txt
+  echo 'AutoName :0' >"$ptd/AutoApkConfig.txt"
+  sleep 1
+  a.sh
+elif [ "$fun" == "AutoName 1" ]; then
+  rm $ptd/AutoApkConfig.txt
+  echo 'AutoName :1' >"$ptd/AutoApkConfig.txt"
+  sleep 1
   a.sh
 else
   read -e -p "File: " file
@@ -78,7 +88,7 @@ else
 
     fi
   else
-    echo "${red}${white}Invalid Function, Choose between b, d, s, p, help${reset}"
+    echo "${red}${white}Invalid Function, Choose between b, d, s, p, AutoName{0/1}, help${reset}"
     a.sh
   fi
 fi
