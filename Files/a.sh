@@ -20,7 +20,7 @@ if [[ ( "$cc" == "apk" && -f "$file" ) || ( -d "$file" ) ]] ; then
   while read USER; do IFS=':' read -ra ADDRY <<< "$USER"; done < $ptd/AutoAPKEditor/Config.txt
   noname="${ADDRY[${#ADDRY[@]} - 1]}"
   echo -en "\x1B[1;49;34mAutoName for Signing is set to $noname \x1B[0m\n"
-  read -e -p "Function[d, s, AutoName{0/1}, help, quit]: " fun
+  read -e -p "Function[d, b, s, p, AutoName{0/1}, help, quit]: " fun
   if [ "$fun" == "quit" ]; then
     exit
   fi
