@@ -1,36 +1,35 @@
 #!/bin/bash
-red=`tput setab 1`
-white=`tput setaf 7`
-green=`tput setab 2`
-reset=`tput sgr0`
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 IFS='/' read -ra ADDR <<< "$SCRIPTPATH"
 pts="$SCRIPTPATH/Files"
 ptd="/Users/${ADDR[2]}"
 ptd2="/usr/local/bin"
 mv $pts/a.sh $ptd2
-echo "${green}${white}Moved Main Script to $ptd2, run it by typing a.sh in Terminal${reset}"
+echo -en "\x1B[1;49;92mMoved Main Script to $ptd2, run it by typing a.sh in Terminal \x1B[0m \n"
 mv $pts/signapk.jar $ptd
 mv $pts/testkey.x509.pem $ptd
 mv $pts/testkey.pk8 $ptd
-mv $pts/AutoApkConfig.txt $ptd
-echo "${green}${white}Moved Signing Files & Config.txt to /Users/${ADDR[2]}${reset}"
+mkdir $ptd/AutoAPKEditor
+mv $pts/AutoApkConfig.txt $ptd/AutoAPKEditor/Config.txt
+mv $pts/AutoAPKEditor.app $ptd/AutoAPKEditor/AutoAPKEditor.app
+echo -en "\x1B[1;49;92mMoved Signing Files to /Users/${ADDR[2]} & Config.txt + App to $ptd/AutoAPKEditor \x1B[0m \n"
 if hash apktool 2>/dev/null; then
-    echo "${green}${white}Apktool is installed!${reset}"
+    echo -en "\x1B[1;49;92mApktool is installed! \x1B[0m \n"
 else
-  echo "${red}${white}Apktool is not installed! Should I install it for you?${reset}"
+  echo -en "\x1B[1;49;91mApktool is not installed! Should I install it for you? \x1B[0m \n"
   select yn in "Yes" "No"; do
     case $yn in
         Yes ) mv $pts/apktool $ptd2
               mv $pts/apktool.jar $ptd2
-              echo "${green}${white}Apktool Installed!${reset}"
+              echo -en "\x1B[1;49;92mApktool Installed! \x1B[0m \n"
               break;;
-        No )  echo "${red}${white}:(${reset}"
+        No )  echo -en "\x1B[1;49;91m:( \x1B[0m \n"
               break;;
     esac
   done
 fi
-echo "${green}${white}Installation Complete!${reset}"
-echo "${red}${white}Deleting Source Files in 3 Seconds!${reset}"
-sleep 3
+echo -en "\x1B[1;49;92mInstallation Complete! \x1B[0m \n"
+sleep 1
+echo -en "\x1B[1;49;91mDeleting Source Files in 2 Seconds! \x1B[0m \n"
+sleep 2
 rm -rf $SCRIPTPATH
