@@ -1,5 +1,10 @@
 #!/bin/bash
 file=$*
+myvar="$( set -f; printf "%s" $* )";
+if [ "$file" != "$myvar" ]; then
+  mv "$*" "$myvar" >&-
+  file="$myvar"
+fi
 IFS='.' read -r -a RA <<< "$file"
 if [ "${#RA[@]}" -gt 1 ]; then
   if [ "${RA[${#RA[@]}-1]}" == "apk" ]; then
