@@ -2,7 +2,7 @@
 A bash based script that helps you decompile, recompile, signs apks\
 
 # Installation 
- Download the repo as a zip, extract and double-click the install.sh in Terminal.\
+ Download the repo as a zip, extract and double-click the install.command\
 All necessary files an be accessed under /Users/username/AutoAPKEditor folder
 
 # Use 
