@@ -6,7 +6,9 @@ ptd="/Users/${ADDR[2]}"
 ptd2="/usr/local/bin"
 cd
 mv $pts/a.sh $ptd2
-echo -en "\x1B[1;49;92mMoved Main Script to $ptd2, run it by typing a.sh in Terminal \x1B[0m \n"
+chmod +x $ptd2/a.sh
+ln -s $ptd2/a.sh /usr/local/bin/apk
+echo -en "\x1B[1;49;92mMoved Main Script to $ptd2, run it by typing a.sh or apk in Terminal \x1B[0m \n"
 mv $pts/signapk.jar $ptd
 mv $pts/testkey.x509.pem $ptd
 mv $pts/testkey.pk8 $ptd
