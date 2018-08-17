@@ -2,11 +2,14 @@
 A bash based script that helps you decompile, recompile, signs apks
 
 # Installation 
-download the repo as a zip, extract and run the install.sh in Terminal. 
+download the repo as a zip, extract and double-click the install.sh in Terminal. 
 All necessary files an be accessed under /Users/username/AutoAPKEditor folder
 
 # Use 
-to use the script, type a.sh or apk in terminal. You can also drag an apk/decompiled folder onto the AutoAPKEdtior.app.other help can be accessed by typing help in the Function: input field
+You can now access the script by doing any of 3:
+a ) typing a.sh in terminal
+b ) typing apk in terminal
+c ) dragging and dropping an apk/decompiled folder onto the AutoAPKEditor.app in /Users/username/AutoAPKEditor folder
 
 # Note 
 the tool achieves removing all the spaces from ur apk file and renaming them.
